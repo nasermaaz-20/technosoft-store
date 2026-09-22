@@ -1,0 +1,12 @@
+/* تخصيص عرض الهيرو على الشاشات الصغيرة */
+.hero-section {
+  /* على الموبايل نخلي الصورة في المنتصف لتظهر بشكل أفضل */
+  background-position: center;
+}
+
+@media (min-width: 768px) {
+  .hero-section {
+    /* على الشاشات الأكبر نرجّع الجهاز إلى اليسار كما هو الآن */
+    background-position: center left;
+  }
+}
