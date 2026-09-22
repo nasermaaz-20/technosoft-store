@@ -1,6 +1,6 @@
 # Dependencies
 node_modules/
-
+SECURITY.md
 # Environment & secrets
 .env
 .env.*
