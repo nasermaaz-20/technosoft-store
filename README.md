@@ -1,137 +1,134 @@
-# TechnoSoft — نظام إدارة متجر وخدمات تقنية
+# TechnoSoft
 
-موقع تجاري متكامل لشركة **TechnoSoft** (صيانة أجهزة، قطع كمبيوتر، وخدمات برمجية) مع لوحة تحكم إدارية لإدارة المنتجات والخدمات.
+TechnoSoft is a modern technology store and service platform built for a client-facing business offering computer repair, spare parts sales, and software-related services. The project includes a responsive Arabic RTL storefront and a secure admin dashboard for managing products and services.
 
-> **ملاحظة:** هذا المستودع للعرض والمحفظة (Portfolio). الكود المصدري عام 
----
+## Live Demo
 
-## الميزات
+https://technosoft-store.com/
 
-- واجهة عربية (RTL) سريعة ومتجاوبة
-- صفحات: الرئيسية، من نحن، المنتجات، الخدمات، تواصل
-- لوحة تحكم محمية (JWT) لإدارة المنتجات والخدمات
-- رفع صور المنتجات مع التحقق من نوع الملف
-- تكامل WhatsApp للطلبات والاستفسارات
+## Overview
 
----
+This platform is designed to provide a smooth online shopping and service experience with:
 
-## التقنيات
+- Product catalog management
+- Service listings and details
+- Contact and WhatsApp integration
+- Admin authentication and dashboard
+- Product image uploads
+- Mobile-friendly responsive interface
 
-| الطبقة | التقنية |
-|--------|---------|
-| Frontend | React 19, Vite, Tailwind CSS, React Router |
-| Backend | Node.js, Express 5, MongoDB, Mongoose |
-| Auth | JWT + bcrypt |
-| Hosting | Frontend (Static) + Backend (Railway) |
+## Features
 
----
+- Responsive Arabic RTL storefront
+- Product and service management through admin panel
+- JWT-based authentication for secure admin access
+- Product image upload support
+- WhatsApp integration for customer communication
+- Clean and professional UI for tech-related business operations
 
-## هيكل المشروع
+## Tech Stack
 
-```
+| Layer | Technology |
+|------|------------|
+| Frontend | React, Vite, Tailwind CSS, React Router |
+| Backend | Node.js, Express, MongoDB, Mongoose |
+| Authentication | JWT + bcrypt |
+| Deployment | Frontend + backend hosted separately |
+
+## Project Structure
+
+```bash
 technosoft/
-├── frontend/          # React + Vite
+├── frontend/          # React frontend
 │   ├── src/
-│   │   ├── pages/     # صفحات الموقع ولوحة التحكم
-│   │   ├── components/
-│   │   ├── services/  # Axios API client
-│   │   └── config/    # متغيرات البيئة
-│   └── .env.example
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.js
 ├── backend/           # Express API
 │   ├── controllers/
 │   ├── models/
 │   ├── routes/
 │   ├── middleware/
-│   └── .env.example
-└── SECURITY.md        # دليل حماية موقع الإنتاج
+│   ├── config/
+│   └── package.json
+├── README.md
+├── .gitignore
+└── SECURITY.md       # kept private / local only if used
 ```
 
----
-
-## التشغيل المحلي
+## Getting Started
 
 ### 1) Backend
 
 ```bash
 cd backend
-cp .env.example .env
-# عدّل .env بقيمك المحلية
 npm install
+cp .env.example .env
+# Update the .env file with your local configuration
 npm run dev
 ```
-
-الـ API يعمل على `http://localhost:5000`
 
 ### 2) Frontend
 
 ```bash
 cd frontend
-cp .env.example .env
 npm install
+cp .env.example .env
+# Update the .env file with your local configuration
 npm run dev
 ```
 
-الواجهة تعمل على `http://localhost:5173`
+### 3) Admin Setup
 
-### 3) إنشاء حساب أدمن (مرة واحدة)
+After starting the backend, create the admin account using the admin setup endpoint in your local environment.
 
-```bash
-curl -X POST http://localhost:5000/api/auth/create \
-  -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"your-strong-password"}'
-```
+## Environment Variables
 
-> في **الإنتاج** يتطلب مسار الإنشاء هيدر `x-admin-setup-secret`
+### Backend
 
----
+| Variable | Description |
+|----------|-------------|
+| `PORT` | Server port |
+| `MONGO_URI` | MongoDB connection string |
+| `JWT_SECRET` | Secret key used to sign JWTs |
+| `CLIENT_URL` | Frontend app URL |
+| `NODE_ENV` | `development` or `production` |
 
-## متغيرات البيئة
+### Frontend
 
-### Backend (`backend/.env`)
+| Variable | Description |
+|----------|-------------|
+| `VITE_API_URL` | Backend API base URL |
+| `VITE_IMAGE_BASE_URL` | Product image URL base |
 
-| المتغير | الوصف |
-|---------|--------|
-| `PORT` | منفذ السيرفر |
-| `MONGO_URI` | رابط MongoDB |
-| `JWT_SECRET` | سر توقيع JWT (طويل وعشوائي) |
-| `CLIENT_URL` | دومين الواجهة (مفصول بفاصلة إن تعدد) |
-| `ADMIN_SETUP_SECRET` | سر لمرة إنشاء الأدمن في الإنتاج |
-| `NODE_ENV` | `development` أو `production` |
-
-### Frontend (`frontend/.env`)
-
-| المتغير | الوصف |
-|---------|--------|
-| `VITE_API_URL` | رابط الـ API |
-| `VITE_IMAGE_BASE_URL` | قاعدة URL لصور المنتجات |
-
----
-
-## البناء للإنتاج
+## Production Build
 
 ```bash
 # Backend
-cd backend && npm start
+cd backend
+npm start
 
 # Frontend
-cd frontend && npm run build
-# ارفع محتوى dist/ إلى الاستضافة
+cd frontend
+npm run build
 ```
 
----
+## Security Notes
 
-## الأمان
+This project follows common security practices such as:
 
-المشروع يتضمن:
+- JWT-based admin authentication
+- Restricted CORS configuration
+- Rate limiting for API access
+- Environment variables stored outside source control
+- File validation for uploads
 
-- Helmet (Security Headers)
-- Rate Limiting على تسجيل الدخول والـ API
-- CORS مقيد على `CLIENT_URL`
-- حماية مسار إنشاء الأدمن في الإنتاج
-- `.env` مستبعد من Git
+Sensitive production details, security checklists, and deployment secrets are intentionally not included in the public repository.
 
----
+## License
 
-## الترخيص
+This project is intended for portfolio and demonstration purposes. It was developed for a client and is not open for public production redistribution.
 
-مشروع خاص — تم تسليمه لعميل. الكود المعروض هنا لأغراض العرض فقط.
+## Contact
+
+For business inquiries or collaboration opportunities, contact the project owner directly.
